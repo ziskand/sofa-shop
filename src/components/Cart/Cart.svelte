@@ -36,7 +36,7 @@
                     <p class="cart-login">
                         in order to checkout please
                         <a
-                            href="/"
+                            href="/login"
                             use:link
                             on:click={() => {
                                 gloablStore.toggleItem('cart', false);

@@ -1,0 +1,19 @@
+import axios from "axios";
+import userStore from "../stores/user";
+import url from "./URL"
+
+const submitOrder = async ({ name, total, items, stripeTokenId, userToken }) => {
+    const response = await axios.
+        post(`${url}/orders`, {
+            name, total, items, stripeTokenId
+        }, {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        })
+        .catch(err => console.log(err))
+
+    return response
+}
+
+export default submitOrder

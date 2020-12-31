@@ -10,8 +10,8 @@ const flattenProducts = (data) => {
 
 const store = writable(flattenProducts([...localProducts]));
 
-export const featuredStore = derived(store, $featured => {
-    return $featured.filter((item) => item.featured);
+export const featuredStore = derived(store, $featured => {   
+       return $featured.filter((item) => item.featured);
 }) 
 
 export default store

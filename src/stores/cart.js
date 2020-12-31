@@ -1,16 +1,16 @@
-import {derived, writable} from "svelte/store"
-import localCart from "../localCart"
+import { derived, writable } from "svelte/store"
+// import localCart from "../localCart"
 
 // cart
 const cart = writable(getStorageCart())
 
 // cart total
 export const cartTotal = derived(cart, $cart => {
-   let total = $cart.reduce(
+    let total = $cart.reduce(
         (acc, curr) => (acc += curr.amount * curr.price),
         0
     );
-    return total.toFixed(2)
+    return parseFloat(total.toFixed(2))
 })
 
 // local functions
@@ -21,7 +21,7 @@ const remove = (id, items) => {
 const toggleAmount = (id, items, action) => {
     return items.map(item => {
         let newAmount
-        switch(action) {
+        switch (action) {
             case "inc":
                 newAmount = item.amount + 1
                 break;
@@ -31,14 +31,14 @@ const toggleAmount = (id, items, action) => {
             default:
                 newAmount = item.amount
         }
-        return item.id === id ? {...item, amount: newAmount} : {...item}
+        return item.id === id ? { ...item, amount: newAmount } : { ...item }
     })
 }
 
 // global functions
 export const removeItem = id => {
     cart.update(storeValue => {
-         return remove(id, storeValue)
+        return remove(id, storeValue)
     })
 }
 
@@ -50,28 +50,28 @@ export const increaseAmount = id => {
 
 export const decreaseAmount = (id, amount) => {
     cart.update(storeValue => {
-       let cart;
+        let cart;
 
-       if (amount === 1) {
-           cart = remove(id, storeValue)
-       } else {
-           cart = toggleAmount(id, storeValue, "dec")
-       }
+        if (amount === 1) {
+            cart = remove(id, storeValue)
+        } else {
+            cart = toggleAmount(id, storeValue, "dec")
+        }
 
-       return [...cart]
+        return [...cart]
     })
 }
 
 export const addToCart = product => {
     cart.update(storeValue => {
-        const {id, image, title, price} = product;
+        const { id, image, title, price } = product;
         let item = storeValue.find(item => item.id === id)
 
         let cart;
         if (item) {
             cart = toggleAmount(id, storeValue, "inc")
         } else {
-            let newItem = {id, image, title, price, amount: 1}
+            let newItem = { id, image, title, price, amount: 1 }
             cart = [...storeValue, newItem]
         }
 

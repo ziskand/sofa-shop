@@ -1,5 +1,5 @@
 <script>
-    import products from "../stores/defaultStores";
+    import products from "../stores/products";
     import globalStore from "../stores/globalStore";
 
     import { link } from "svelte-routing";

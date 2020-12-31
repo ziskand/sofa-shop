@@ -1,5 +1,23 @@
-import {writable} from "svelte/store"
+import { writable } from "svelte/store"
 
-const user = writable({username: null, jwt: null})
+const userStore = writable(getStorageUser())
 
-export default user
+function getStorageUser() {
+    let user = localStorage.getItem("user")
+    return user ? JSON.parse(user) : { username: null, jwt: null }
+}
+
+export const setStorageUser = (user) => {
+    localStorage.setItem("user", JSON.stringify(user))
+}
+
+export const setUser = (user) => {
+    userStore.set(user)
+}
+
+export const logoutUser = () => {
+    localStorage.clear()
+    userStore.set({ username: null, jwt: null })
+}
+
+export default userStore

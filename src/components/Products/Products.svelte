@@ -1,5 +1,5 @@
 <script>
-    import products from "../../stores/defaultStores";
+    import products from "../../stores/products";
     import Loading from "../Loading.svelte";
     import Product from "./Product.svelte";
 

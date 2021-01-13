@@ -1,5 +1,4 @@
 import axios from "axios";
-import userStore from "../stores/user";
 import url from "./URL"
 
 const submitOrder = async ({ name, total, items, stripeTokenId, userToken }) => {
